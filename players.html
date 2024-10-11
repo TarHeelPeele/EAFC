@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Player Editor</title>
+</head>
+
+<body>
+    <div class="container-fluid" id="playersGrid">
+    </div>
+
+    <div class="container-fluid d-none" id="playerEditor">
+        <input type="button" id="btnSave" value="Save">
+        <input type="button" id="btnCancel" value="Cancel">
+
+        <!-- Face card stats -->
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-1">
+                Height
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-1">
+                SM
+            </div>
+            <div class="col-1">
+                WF
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <input type="text" id="inCardName">
+            </div>
+            <div class="col-1">
+                <select id="selHeight">
+                    <option value="99">&gt;=6'5</option>
+                    <option value="98">6'4</option>
+                    <option value="97">6'3</option>
+                    <option value="95">6'2</option>
+                    <option value="93">6'1</option>
+                    <option value="91" selected="true">6'0</option>
+                    <option value="89">5'11</option>
+                    <option value="85">5'10</option>
+                    <option value="81">5'9</option>
+                    <option value="77">5'8</option>
+                    <option value="73">5'7</option>
+                    <option value="69">5'6</option>
+                    <option value="65">5'5</option>
+                    <option value="61">5'4</option>
+                    <option value="57">5'3</option>
+                    <option value="49">5'2</option>
+                    <option value="41">5'1</option>
+                </select>
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-1">
+                <select id="selSkillMoves">
+                    <option value="99" selected="true">5</option>
+                    <option value="79">4</option>
+                    <option value="59">3</option>
+                    <option value="39">2</option>
+                    <option value="19">1</option>
+                </select>
+            </div>
+            <div class="col-1">
+                <select id="selWeakFoot">
+                    <option value="99" selected="true">5</option>
+                    <option value="79">4</option>
+                    <option value="59">3</option>
+                    <option value="39">2</option>
+                    <option value="19">1</option>
+                </select>
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-1">
+                Owned<input type="checkbox" id="inOwned" checked>
+            </div>
+            <div class="col-1">
+                <select id="rolePlusPlusPositions" multiple size="6">
+                </select>
+            </div>
+        </div>
+
+        <br />
+
+        <!-- Detail stats and Playstyles -->
+        <div class="container-fluid">
+            <div class="row">
+                <!-- detail stats -->
+                <div class="col-6 bg-light text-dark">
+                    <!-- Pace stats -->
+                    <div class="row">
+                        <div class="col-2">
+                            Acceleration
+                        </div>
+                        <div class="col-2">
+                            Sprint Speed
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <input type="number" id="inAcceleration" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inSprintSpeed" min="1" max="99">
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-2"></div>
+                        <div class="col-2"></div>
+                        <div class="col-2"></div>
+                    </div>
+
+                    <br />
+
+                    <!-- Shooting stats -->
+                    <div class="row">
+                        <div class="col-2">
+                            Att. Position
+                        </div>
+                        <div class="col-2">
+                            Finishing
+                        </div>
+                        <div class="col-2">
+                            Shot Power
+                        </div>
+                        <div class="col-2">
+                            Long Shots
+                        </div>
+                        <div class="col-2">
+                            Volleys
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <input type="number" id="inAttackPositioning" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inFinishing" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inShotPower" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inLongShots" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inVolleys" min="1" max="99">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <!-- Passing stats -->
+                    <div class="row">
+                        <div class="col-2">
+                            Vision
+                        </div>
+                        <div class="col-2">
+                            Crossing
+                        </div>
+                        <div class="col-2">
+                            Short Pass
+                        </div>
+                        <div class="col-2">
+                            Long Pass
+                        </div>
+                        <div class="col-2">
+                            Curve
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <input type="number" id="inVision" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inCrossing" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inShortPass" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inLongPass" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inCurve" min="1" max="99">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <!-- Dribbling stats -->
+                    <div class="row">
+                        <div class="col-2">
+                            Agility
+                        </div>
+                        <div class="col-2">
+                            Balance
+                        </div>
+                        <div class="col-2">
+                            Reactions
+                        </div>
+                        <div class="col-2">
+                            Ball Control
+                        </div>
+                        <div class="col-2">
+                            Dribbling
+                        </div>
+                        <div class="col-2">
+                            Composure
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <input type="number" id="inAgility" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inBalance" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inReactions" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inBallControl" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inDribbling" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inComposure" min="1" max="99">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <!-- Defending stats -->
+                    <div class="row">
+                        <div class="col-2">
+                            Interceptions
+                        </div>
+                        <div class="col-2">
+                            Heading Acc
+                        </div>
+                        <div class="col-2">
+                            Def. Aware.
+                        </div>
+                        <div class="col-2">
+                            Stand Tackle
+                        </div>
+                        <div class="col-2">
+                            Slide Tackle
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <input type="number" id="inInterceptions" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inHeadingAccuracy" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inDefAware" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inStandTackle" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inSlideTackle" min="1" max="99">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <!-- Physicality stats -->
+                    <div class="row">
+                        <div class="col-2">
+                            Jumping
+                        </div>
+                        <div class="col-2">
+                            Stamina
+                        </div>
+                        <div class="col-2">
+                            Strength
+                        </div>
+                        <div class="col-2">
+                            Aggression
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <input type="number" id="inJumping" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inStamina" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inStrength" min="1" max="99">
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="inAggression" min="1" max="99">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Playstyles -->
+                <div class="col-6  bg-info text-white">
+                    <!-- Scoring-->
+                    <div class="row">
+                        <div class="col-2">
+                            Finesse Shot
+                        </div>
+                        <div class="col-2">
+                            Chip Shot
+                        </div>
+                        <div class="col-2">
+                            Power Shot
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            Power Head
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <select id="selFinesseShot">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selChipShot">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selPowerShot">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            <select id="selPowerHeader">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <br />
+                    <!-- Passing-->
+                    <div class="row">
+                        <div class="col-2">
+                            Incisive Pass
+                        </div>
+                        <div class="col-2">
+                            Pinged Pass
+                        </div>
+                        <div class="col-2">
+                            Long Ball
+                        </div>
+                        <div class="col-2">
+                            Tiki Taka
+                        </div>
+                        <div class="col-2">
+                            Whipped Pas
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <select id="selIncisivePass">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selPingedPass">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selLongBall">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selTikiTaka">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selWhippedPass">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <br />
+                    <!-- Defending-->
+                    <div class="row">
+                        <div class="col-2">
+                            Jockey
+                        </div>
+                        <div class="col-2">
+                            Block
+                        </div>
+                        <div class="col-2">
+                            Intercept
+                        </div>
+                        <div class="col-2">
+                            Anticipate
+                        </div>
+                        <div class="col-2">
+                            Slide Tackle
+                        </div>
+                        <div class="col-2">
+                            Bruiser
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <select id="selJockey">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selBlock">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selIntercept">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selAnticipate">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selSlideTackle">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selBruiser">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <!-- Ball Control-->
+                    <div class="row">
+                        <div class="col-2">
+                            Technical
+                        </div>
+                        <div class="col-2">
+                            Rapid
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            First Touch
+                        </div>
+                        <div class="col-2">
+                            Trickster
+                        </div>
+                        <div class="col-2">
+                            Press Proven
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <select id="selTechnical">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selRapid">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            <select id="selFirstTouch">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selTrickster">
+                                <option value="99">Plus</option>
+                                <option value="19">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selPressProven">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <!-- Physical-->
+                    <div class="row">
+                        <div class="col-2">
+                            Quick Step
+                        </div>
+                        <div class="col-2">
+                            Relentless
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            Acrobatic
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            Aerial
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <select id="selQuickStep">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="selRelentless">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            <select id="selAcrobatic">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-2">
+                            <select id="selAerial">
+                                <option value="99">Plus</option>
+                                <option value="59">Reg</option>
+                                <option value="19">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="./code.js"></script>
+</body>
+
+</html>
