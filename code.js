@@ -350,16 +350,17 @@ $(function () {
                 }
 
                 //calc position rating
-                position.rating = ((position.points / position.pointsMax) * 100).toFixed(2);
+                position.rating = parseFloat(((position.points / position.pointsMax) * 100).toFixed(2));
 
                 //add position to this player
                 player.positions.push(position);
-
-                player.rating = parseFloat(player.rating) +  parseFloat(position.rating);
             });
 
-            //calclate overall
-            player.rating = (player.rating / 6).toFixed(2);
+            let bestThreePosRatings = player.positions.slice().sort((a, b) => b.rating - a.rating).slice(0,3);
+            bestThreePosRatings.forEach((pos) =>{
+                player.rating += pos.rating;
+            });
+            player.rating = (player.rating / 3).toFixed(2);
         });
     }
 
