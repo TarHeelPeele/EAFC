@@ -15,11 +15,17 @@ $(function () {
     bindGrid();
     showGrid();
 
-
+    //add standard positions to role list
     positions.forEach((pos) => {
-        var newOption = $("<option></option>").val(pos).text(pos);
+        let newOption = $("<option></option>").val(pos).text(pos);
         $("#rolePlusPlusPositions").append(newOption);
     });
+
+    //add CAM and CDM to role list
+    let newOption = $("<option></option>").val('CAM').text('CAM');
+    $("#rolePlusPlusPositions").append(newOption);
+    newOption = $("<option></option>").val('CDM').text('CDM');
+    $("#rolePlusPlusPositions").append(newOption);
 
     //#region event binding
     $("#btnSave").on("click", "", function () {
@@ -269,6 +275,14 @@ $(function () {
     function bindGrid() {
         $("#playersGrid").children().remove();
 
+        //Create new player
+        $("#playersGrid").append(`<div id="divCardName_NewPlayer" class="row bg-secondary">${cNewPlayerText}</div>`);
+        $(`#divCardName_NewPlayer`).on("click", "", function () {
+            currentPlayerName = null;
+            bindPlayerToUI()
+            showPlayerEditor();
+        });
+
         //Header
         $("#playersGrid").append(`<div id="divPlayerHeaderRow" class="row">`);
         $("#divPlayerHeaderRow").append(`<div id="divColName" class="col-2 bg-primary">Name</div>`);
@@ -279,36 +293,32 @@ $(function () {
         $("#divPlayerHeaderRow").append(`<div id="divColWideMid" class="col-1 bg-primary">Wide Mid</div>`);
         $("#divPlayerHeaderRow").append(`<div id="divColCenterBack" class="col-1 bg-primary">Center Back</div>`);
         $("#divPlayerHeaderRow").append(`<div id="divColWideBack" class="col-1 bg-primary">Full Back</div>`);
+        $("#divPlayerHeaderRow").append(`<div id="divColCAM" class="col-1 bg-primary">CAM</div>`);
+        $("#divPlayerHeaderRow").append(`<div id="divColCDM" class="col-1 bg-primary">CDM</div>`);
         $("#divPlayerHeaderRow").append(`</div>`);
 
         bindColSortEvents();
 
         players.forEach((p, index) => {
             $("#playersGrid").append(`<div id="divPlayerRow_${index}" class="row ${altRowColor(index)}">`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}" class="col-2">${p.cardName}</div>`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}" class="col-1">${p.rating}</div>`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}_Str" class="col-1">${p.positions[0].rating} ${p.positions[0].chemStyle.substr(0,4)}</div>`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}_Wing" class="col-1">${p.positions[1].rating} ${p.positions[1].chemStyle.substr(0,4)}</div>`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}_CM" class="col-1">${p.positions[2].rating} ${p.positions[2].chemStyle.substr(0,4)}</div>`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}_WM" class="col-1">${p.positions[3].rating} ${p.positions[3].chemStyle.substr(0,4)}</div>`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}_CB" class="col-1">${p.positions[4].rating} ${p.positions[4].chemStyle.substr(0,4)}</div>`);
-            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replace(' ', '_')}_FB" class="col-1">${p.positions[5].rating} ${p.positions[5].chemStyle.substr(0,4)}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}" class="col-2">${p.cardName}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}" class="col-1">${p.rating}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Str" class="col-1">${p.positions[0].rating} ${p.positions[0].chemStyle.substr(0,4)}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Wing" class="col-1">${p.positions[1].rating} ${p.positions[1].chemStyle.substr(0,4)}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_CM" class="col-1">${p.positions[2].rating} ${p.positions[2].chemStyle.substr(0,4)}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_WM" class="col-1">${p.positions[3].rating} ${p.positions[3].chemStyle.substr(0,4)}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_CB" class="col-1">${p.positions[4].rating} ${p.positions[4].chemStyle.substr(0,4)}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_FB" class="col-1">${p.positions[5].rating} ${p.positions[5].chemStyle.substr(0,4)}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_CAM" class="col-1">${p.positions[6].rating}</div>`);
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_CDM" class="col-1">${p.positions[7].rating}</div>`);
             $("#playersGrid").append(`</div>`);
 
             //bind click event to edit player
-            $(`#divCardName_${p.cardName.replace(' ', '_')}`).on("click", "", function () {
+            $(`#divCardName_${p.cardName.replaceAll(' ', '_')}`).on("click", "", function () {
                 currentPlayerName = $(this).text();
                 bindPlayerToUI()
                 showPlayerEditor();
             });
-        });
-
-        //Create new player
-        $("#playersGrid").append(`<div id="divCardName_NewPlayer" class="col-2 bg-primary">${cNewPlayerText}</div>`);
-        $(`#divCardName_NewPlayer`).on("click", "", function () {
-            currentPlayerName = null;
-            bindPlayerToUI()
-            showPlayerEditor();
         });
     }
 
@@ -356,6 +366,10 @@ $(function () {
                 player.positions.push(position);
             });
 
+            //ADD CAM and CDM positions for players with this role ++
+            addCDM_CAM_Positions(player, rolePlusPlus);
+
+            //Calc the players overall rating based on his best 3 positional ratings
             let bestThreePosRatings = player.positions.slice().sort((a, b) => b.rating - a.rating).slice(0,3);
             bestThreePosRatings.forEach((pos) =>{
                 player.rating += pos.rating;
@@ -711,4 +725,34 @@ $(function () {
 
         return 0;
     }
+
+    //#region GRID HELPER FUNCTIONS
+        function addCDM_CAM_Positions(player, rolePlusPlus){
+            //ADD CAM position for players with this role ++
+            if (player.roles && player.roles.includes('CAM')){
+                let points = player.positions[2].points + player.positions[0].points + rolePlusPlus;
+                let maxPoints = player.positions[2].pointsMax + player.positions[0].pointsMax + rolePlusPlus;
+                let camRating = parseFloat(((points / maxPoints) * 100).toFixed(2));
+                let position = {name : 'CAM', rating : camRating};
+                player.positions.push(position);
+            }
+            else{
+                let position = {name : 'CAM', rating : 0};
+                player.positions.push(position);
+            }
+            
+            //ADD CDM position for players with this role ++
+            if (player.roles && player.roles.includes('CDM')){
+                let points = player.positions[2].points + player.positions[4].points + rolePlusPlus;
+                let maxPoints = player.positions[2].pointsMax + player.positions[4].pointsMax + rolePlusPlus;
+                let cdmRating = parseFloat(((points / maxPoints) * 100).toFixed(2));
+                let position = {name : 'CDM', rating : cdmRating};
+                player.positions.push(position);
+            }
+            else{
+                let position = {name : 'CDM', rating : 0};
+                player.positions.push(position);
+            }
+        }
+    //#endregion
 //#endregion
