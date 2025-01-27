@@ -286,6 +286,7 @@ $(function () {
         //Header
         $("#playersGrid").append(`<div id="divPlayerHeaderRow" class="row">`);
         $("#divPlayerHeaderRow").append(`<div id="divColName" class="col-2 bg-primary">Name</div>`);
+        $("#divPlayerHeaderRow").append(`<div class="col-1 bg-primary"></div>`);
         $("#divPlayerHeaderRow").append(`<div id="divColRating" class="col-1 bg-primary">Rating</div>`);
         $("#divPlayerHeaderRow").append(`<div id="divColStriker" class="col-1 bg-primary">Striker</div>`);
         $("#divPlayerHeaderRow").append(`<div id="divColWinger" class="col-1 bg-primary">Winger</div>`);
@@ -302,6 +303,11 @@ $(function () {
         players.forEach((p, index) => {
             $("#playersGrid").append(`<div id="divPlayerRow_${index}" class="row ${altRowColor(index)}">`);
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}" class="col-2">${p.cardName}</div>`);
+
+            $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Del" class="col-1" data-card-name="${p.cardName}"><img src="./img/delete.png"></img></div>`);
+
+
+
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}" class="col-1">${p.rating}</div>`);
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Str" class="col-1">${p.positions[0].rating} ${p.positions[0].chemStyle.substr(0,4)}</div>`);
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Wing" class="col-1">${p.positions[1].rating} ${p.positions[1].chemStyle.substr(0,4)}</div>`);
@@ -319,6 +325,15 @@ $(function () {
                 bindPlayerToUI()
                 showPlayerEditor();
             });
+
+            //bind click event to Delete player
+            $(`#divCardName_${p.cardName.replaceAll(' ', '_')}_Del`).on("click", "", function () {
+                if (confirm(`Are you sure you want to delete ${$(this).attr('data-card-name')}?`)){
+                    currentPlayerName = $(this).attr('data-card-name');
+                    players = players.filter(item => item.cardName !== currentPlayerName);
+                    bindGrid();
+                }
+            }); 
         });
     }
 
