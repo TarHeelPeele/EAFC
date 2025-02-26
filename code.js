@@ -4,6 +4,7 @@ const cCB = "Center Back"; const cSt = "Striker"; const cW = "Wing"; const cWM =
 let positions = [cSt,cW,cCM,cWM,cCB,cFB]; 
 let chemStyles = ['Basic','Sniper','Finisher','Deadeye','Marksman','Hawk','Artist','Architect','Powerhouse','Maestro','Engine'
     ,'Sentinel','Guardian','Gladiator','Backbone','Anchor','Hunter', 'Catalyst','Shadow'];
+let onlyOwned = true;
 
 $(function () {
     console.log("Code Loaded");
@@ -275,12 +276,20 @@ $(function () {
     function bindGrid() {
         $("#playersGrid").children().remove();
 
-        //Create new player
-        $("#playersGrid").append(`<div id="divCardName_NewPlayer" class="row bg-secondary">${cNewPlayerText}</div>`);
+        //Create new player button and Owned filter
+        $("#playersGrid").append(`<div class="row bg-secondary">
+                                    <div id="divCardName_NewPlayer" class="col-2 bg-success">${cNewPlayerText}</div>
+                                    <div class="col-2 bg-warning"><input type="checkbox" id="cbOwned" ${onlyOwned ? 'checked' : ''}><label for="cbOwned">Only Owned</label>                                    </div>
+                                </div>`);
         $(`#divCardName_NewPlayer`).on("click", "", function () {
             currentPlayerName = null;
             bindPlayerToUI()
             showPlayerEditor();
+        });
+
+        $(`#cbOwned`).on("click", "", function () {
+            onlyOwned = !onlyOwned;
+            bindGrid();
         });
 
         //Header
@@ -300,14 +309,16 @@ $(function () {
 
         bindColSortEvents();
 
+        bindGridRows();
+    }
+
+    function bindGridRows(){
         players.forEach((p, index) => {
+            if ($(`#cbOwned`).attr('checked') && !p.owned){return;}
+
             $("#playersGrid").append(`<div id="divPlayerRow_${index}" class="row ${altRowColor(index)}">`);
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}" class="col-2">${p.cardName}</div>`);
-
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Del" class="col-1" data-card-name="${p.cardName}"><img src="./img/delete.png"></img></div>`);
-
-
-
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}" class="col-1">${p.rating}</div>`);
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Str" class="col-1">${p.positions[0].rating} ${p.positions[0].chemStyle.substr(0,4)}</div>`);
             $(`#divPlayerRow_${index}`).append(`<div id="divCardName_${p.cardName.replaceAll(' ', '_')}_Wing" class="col-1">${p.positions[1].rating} ${p.positions[1].chemStyle.substr(0,4)}</div>`);
@@ -495,6 +506,14 @@ $(function () {
         });
         $("#divColWideBack").on("click", "", function () {
             players.sort((a, b) => b.positions[5].rating - a.positions[5].rating);
+            bindGrid();
+        });
+        $("#divColCAM").on("click", "", function () {
+            players.sort((a, b) => b.positions[6].rating - a.positions[6].rating);
+            bindGrid();
+        });
+        $("#divColCDM").on("click", "", function () {
+            players.sort((a, b) => b.positions[7].rating - a.positions[7].rating);
             bindGrid();
         });
     }
