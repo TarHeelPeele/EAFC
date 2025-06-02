@@ -92,6 +92,7 @@ $(function () {
             $("#selChipShot").val(p.chipShot);
             $("#selPowerShot").val(p.powerShot);
             $("#selPowerHeader").val(p.powerHeader);
+            $("#selLowDrivenShot").val(p.lowDrivenShot);
             $("#selIncisivePass").val(p.incisivePass);
             $("#selPingedPass").val(p.pingedPass);
             $("#selLongBall").val(p.longBall);
@@ -152,6 +153,7 @@ $(function () {
             $("#selChipShot").val('');
             $("#selPowerShot").val('');
             $("#selPowerHeader").val('');
+            $("#selLowDrivenShot").val('');
             $("#selIncisivePass").val('');
             $("#selPingedPass").val('');
             $("#selLongBall").val('');
@@ -226,6 +228,7 @@ $(function () {
                 , chipShot: parseInt($("#selChipShot").val())
                 , powerShot: parseInt($("#selPowerShot").val())
                 , powerHeader: parseInt($("#selPowerHeader").val())
+                , lowDrivenShot: parseInt($("#selLowDrivenShot").val())
                 , incisivePass: parseInt($("#selIncisivePass").val())
                 , pingedPass: parseInt($("#selPingedPass").val())
                 , longBall: parseInt($("#selLongBall").val())
@@ -439,7 +442,8 @@ $(function () {
             "finesseShot":[null,null,cCM,cWM,cSt,cW],
             "chipShot":[null,null,cWM,cCM,cW,cSt],
             "powerShot":[cFB,cCB,cWM,cW,cCM,cSt],
-            "powerHeader":[null,cW,cCM,cFB,cSt,cCB],
+            "powerHeader":[null,cW,cCM,cFB,cCB,cSt],
+            "lowDrivenShot":[null,null,cCM,cWM,cW,cSt],
             "incisivePass":[null,null,cW,cWM,cSt,cCM],
             "pingedPass":[null,cFB,cSt,cCB,cWM,cCM],
             "longBall":[null,null,cWM,cFB,cCM,cCB],
